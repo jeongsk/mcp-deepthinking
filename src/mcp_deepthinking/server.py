@@ -8,10 +8,8 @@ def serve(api_key: str, model_id: str = "deepseek-r1-distill-llama-70b"):
         level=logging.INFO,
         format="%(asctime)s - %(levelname)s - %(message)s"
     )
-    logging.info("Starting serve()")
 
     mcp = FastMCP("deepthinking")
-    logging.info("Initialized FastMCP server")
 
     allowed_models = [
         "deepseek-r1-distill-llama-70b",
@@ -33,7 +31,6 @@ def serve(api_key: str, model_id: str = "deepseek-r1-distill-llama-70b"):
         temperature=1.0,
         stop="</think>",
     )
-    logging.info(f"Initialized ChatGroq LLM with model_id: {model_id}")
 
     @mcp.tool()
     async def deepthinking(query: str) -> str:
@@ -42,11 +39,8 @@ def serve(api_key: str, model_id: str = "deepseek-r1-distill-llama-70b"):
         Args:
             query: The input query or prompt for the AI to process.
         """
-        logging.info(f"deepthinking tool invoked with query: {query}")
 
         completions = llm.invoke(query)
-        logging.info(f"LLM response received, length: {len(completions.content)} characters")
         return f"{completions.content}</think>"
 
-    logging.info("Running MCP server with stdio transport")
     mcp.run(transport="stdio")
