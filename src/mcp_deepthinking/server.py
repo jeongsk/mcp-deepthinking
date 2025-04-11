@@ -5,7 +5,7 @@ from langchain_groq import ChatGroq
 def serve(api_key: str, model_id: str = "deepseek-r1-distill-llama-70b"):
     # 로깅 설정
     logging.basicConfig(
-        level=logging.INFO,
+        level=logging.WARN,
         format="%(asctime)s - %(levelname)s - %(message)s"
     )
 
