@@ -1,6 +1,8 @@
-from .server import serve
 import asyncio
 import os
+
+from .server import serve
+
 
 def main():
     """MCP Deepthinking main entry point."""

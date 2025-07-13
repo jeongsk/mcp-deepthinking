@@ -1,6 +1,8 @@
 import logging
-from mcp.server.fastmcp import FastMCP
+
 from langchain_groq import ChatGroq
+from mcp.server.fastmcp import FastMCP
+
 
 def serve(api_key: str, model_id: str = "deepseek-r1-distill-llama-70b"):
     # 로깅 설정
