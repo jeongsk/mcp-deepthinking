@@ -1,7 +1,9 @@
 import logging
+from typing import Annotated
 
 from langchain_core.language_models.chat_models import BaseChatModel
 from mcp.server.fastmcp import FastMCP
+from pydantic import Field
 
 
 async def serve(
@@ -43,7 +45,7 @@ async def serve(
             max_tokens=8192,
             max_retries=2,
             temperature=1.0,
-            stop="</think>",
+            stop=["</think>"],
         )
     elif provider == "deepseek":
         from langchain_deepseek import ChatDeepSeek
@@ -64,7 +66,7 @@ async def serve(
             max_tokens=8192,
             max_retries=2,
             temperature=1.0,
-            stop="</think>",
+            stop=["</think>"],
         )
     elif provider == "ollama":
         from langchain_ollama import ChatOllama
@@ -75,11 +77,13 @@ async def serve(
             max_tokens=8192,
             max_retries=2,
             temperature=1.0,
-            stop="</think>",
+            stop=["</think>"],
         )
 
     @mcp.tool()
-    async def deepthinking(query: str) -> str:
+    async def deepthinking(
+        query: Annotated[str, Field(description="query for the AI to process")],
+    ) -> str:
         """
         A tool that helps AI perform deep thinking (reasoning) processes. It can be used for complex problem solving, planning, multi-step reasoning, and more.
         Args:
@@ -91,4 +95,4 @@ async def serve(
         completions = llm.invoke(query)
         return f"{completions.content}</think>"
 
-    mcp.run(transport="stdio")
+    await mcp.run_stdio_async()

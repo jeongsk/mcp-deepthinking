@@ -1,14 +1,14 @@
 import asyncio
 import os
 
-from mcp_deepthinking.serve import serve
+from mcp_deepthinking.server import serve
 
 
 def main():
     """MCP Deepthinking main entry point."""
 
     # groq, deepseek, ollama
-    provider = os.getenv("MCP_PROVIDER", "groq")
+    provider = os.getenv("PROVIDER", "groq")
     if provider not in ["groq", "deepseek", "ollama"]:
         raise ValueError(
             f"Unsupported MCP provider: {provider}. Supported providers are 'groq', 'deepseek', and 'ollama'."
