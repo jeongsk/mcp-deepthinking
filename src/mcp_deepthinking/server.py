@@ -16,7 +16,10 @@ async def serve(
         level=logging.WARN, format="%(asctime)s - %(levelname)s - %(message)s"
     )
 
-    mcp = FastMCP("deepthinking")
+    mcp = FastMCP(
+        "deepthinking",
+        instructions="This server provides ONLY tools (no prompts or resources)."
+    )
 
     llm: BaseChatModel | None = None
 
