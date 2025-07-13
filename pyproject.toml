@@ -14,8 +14,7 @@ dependencies = [
   "langchain-ollama>=0.3.4",
   "langgraph>=0.5.2",
   "logging>=0.4.9.6",
-  "mcp[cli]>=1.11.0",
-  "python-dotenv>=1.1.1",
+  "pydantic-settings>=2.0.0",
 ]
 description = "MCP server providing a 'deepthinking' tool powered by Groq LLMs for complex reasoning."
 keywords = ["mcp", "llm", "deepthinking"]
@@ -26,11 +25,14 @@ requires-python = ">=3.11"
 version = "0.1.12"
 
 [project.scripts]
-mcp-deepthinking = "mcp_deepthinking:main"
+mcp-deepthinking = "mcp_deepthinking.__main__:main"
 
 [build-system]
 build-backend = "hatchling.build"
 requires = ["hatchling"]
+
+[tool.hatch.metadata]
+allow-direct-references = true
 
 [tool.uv]
 dev-dependencies = ["pyright", "ruff"]
